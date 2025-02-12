@@ -19,7 +19,7 @@ export const createProduct = async (req, res) => {
   try {
     const createdProduct = await sql`
     INSERT INTO products (name, price, image)
-    VALUE (${name}, ${price}, ${image})
+    VALUES (${name},${price},${image})
     RETURNING *
     `
     res.status(201).json({ success: true, data: createdProduct[0] })
@@ -33,6 +33,9 @@ export const getProduct = async (req, res) => {
     const product = await sql`
     SELECT * FROM products WHERE id=${id}
     `
+    if (product.length === 0) {
+      return res.status(404).json({ success: false, message: "No product found" })
+    }
     res.status(200).json({ success: true, data: product[0] })
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal Server Error" })
