@@ -1,3 +1,4 @@
+import { getItem, setItem } from "@/utils/localStorage";
 import { create } from "zustand";
 
 type ThemeStore = {
@@ -5,6 +6,9 @@ type ThemeStore = {
   setTheme: (theme: string) => void;
 };
 export const useThemeStore = create<ThemeStore>((set) => ({
-  theme: "forest",
-  setTheme: (theme: string) => set({ theme }),
+  theme: getItem("preferredTheme", "forest"),
+  setTheme: (theme: string) => {
+    setItem("preferredTheme", theme);
+    set({ theme });
+  },
 }));
