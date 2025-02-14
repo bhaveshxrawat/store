@@ -2,10 +2,10 @@
   "name": "store~postgres-express-react-node",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch backend/server.js"
+    "dev": "node --watch server.js"
   },
   "keywords": [],
   "author": "",
