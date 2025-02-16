@@ -7,10 +7,11 @@ type ProductStore = {
   loading: boolean;
   error: null | string;
   fetchProducts: () => Promise<void>;
-  deleteProducts: (id: string) => Promise<void>;
+  addProduct: (data: NewProductType) => Promise<boolean>;
+  deleteProduct: (id: number) => Promise<void>;
 };
 const baseURL = "http://localhost:5001";
-export const useProductStore = create<ProductStore>((set, get) => ({
+export const useProductStore = create<ProductStore>((set) => ({
   products: [],
   loading: false,
   error: null,
@@ -27,7 +28,18 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       set({ loading: false });
     }
   },
-  deleteProducts: async (id: string) => {
+  addProduct: async (data) => {
+    try {
+      set({ loading: true });
+      await axios.post(`${baseURL}/api/products`, data);
+      return true;
+    } catch (error) {
+      return false;
+    } finally {
+      set({ loading: false });
+    }
+  },
+  deleteProduct: async (id) => {
     try {
       set({ loading: true });
       await axios.delete(`${baseURL}/api/products/${id}`);

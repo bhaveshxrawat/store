@@ -5,3 +5,4 @@ type Product = {
   name: string;
   price: string;
 };
+type NewProductType = Record<"name" | "price" | "image", string>;
