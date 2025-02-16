@@ -1,9 +1,16 @@
 import { useProductStore } from "@/store/useProductStore";
 import { EditIcon, Trash2Icon } from "lucide-react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 function ProductCard({ product }: { product: Product }) {
   const { deleteProduct } = useProductStore();
+  async function handleDeleteEv(id: number) {
+    deleteProduct(id).then(
+      () => toast.success("Item deleted successfully"),
+      () => toast.error("Item couldn't be deleted")
+    );
+  }
   return (
     <article className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
       <figure>
@@ -27,7 +34,7 @@ function ProductCard({ product }: { product: Product }) {
           </Link>
           <button
             className="btn btn-sm btn-error btn-outline"
-            onClick={() => deleteProduct(product.id)}
+            onClick={() => handleDeleteEv(product.id)}
           >
             <Trash2Icon size={20} />
           </button>
