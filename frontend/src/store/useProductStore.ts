@@ -11,7 +11,8 @@ type ProductStore = {
   deleteProduct: (id: number) => Promise<void>;
   updateProduct: (id: number, data: NewProductType) => Promise<void>;
 };
-const baseURL = "http://localhost:5001";
+const baseURL =
+  import.meta.env.MODE === "development" ? "http://localhost:5001" : "";
 export const useProductStore = create<ProductStore>((set) => ({
   products: [],
   loading: false,

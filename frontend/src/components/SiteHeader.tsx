@@ -1,13 +1,15 @@
 import { Link, useResolvedPath } from "react-router-dom";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
+import { useProductStore } from "@/store/useProductStore";
 
 const SiteHeader = () => {
   const { pathname } = useResolvedPath(window.location.pathname);
+  const { products } = useProductStore();
   const isHomepage = pathname === "/";
   return (
     <header className="bg-base-100/80 backdrop-blur-lg border-b border-base-content/10 sticky top-0 z-50">
-      <div className="max-w-7xl max-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="navbar px-4 min-h justify-between">
           <Link to="/" className="flex items-center gap-1">
             <ShoppingBag />
@@ -25,7 +27,7 @@ const SiteHeader = () => {
                 >
                   <ShoppingCart className="size-5" />
                   <span className="badge badge-sm badge-primary indicator-item">
-                    8
+                    {products.length}
                   </span>
                 </button>
               </div>

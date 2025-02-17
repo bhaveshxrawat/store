@@ -5,7 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch server.js"
+    "dev": "node --watch backend/server.js",
+    "prod/build": "pnpm install && pnpm install --prefix frontend && cd frontend && pnpm run build",
+    "prod/start": "node backend/server.js"
   },
   "keywords": [],
   "author": "",
