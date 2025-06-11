@@ -4,7 +4,7 @@ import cors from "cors";
 import { errorMiddleware } from "@/middlewares/error.js";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { prisma } from "./lib/prisma";
+import { aj } from "./lib/arcjet";
 
 dotenv.config({ path: "./.env" });
 
@@ -25,30 +25,47 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: " * ", credentials: true }));
 app.use(morgan("dev"));
 
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
+app.use(async (req, res, next) => {
+  try {
+    const decision = await aj.protect(req, {
+      requested: 1,
+    });
+    if (decision.isDenied()) {
+      switch (true) {
+        case decision.reason.isRateLimit():
+          res.status(429).json({
+            error: "Too Many Requests",
+          });
+          break;
+        case decision.reason.isBot():
+          res.status(403).json({
+            error: "Bot access denied",
+          });
+          break;
+        default:
+          res.status(403).json({
+            error: "Forbidden",
+          });
+      }
+      return;
+    }
+
+    if (
+      decision.results.some(
+        (result) => result.reason.isBot() && result.reason.isSpoofed()
+      )
+    ) {
+      res.status(403).json({ error: "Spoofed bot detected" });
+      return;
+    }
+    next();
+  } catch (e) {
+    console.log("Arcjet error", e);
+    next(e);
+  }
 });
 
-// app.get("/api/new-user", async (req, res, next) => {
-//   const product = await prisma.product.create({
-//     data: {
-//       name: "Vim Bar",
-//       imageUrl: "img.jpg",
-//       price: 50,
-//     },
-//   });
-//   res.status(200).json({
-//     data: product,
-//   });
-// });
-// your routes here
-
-app.get("/{*any}", (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Page not found",
-  });
-});
+app.use("/v1/api/");
 
 app.use(errorMiddleware);
 
