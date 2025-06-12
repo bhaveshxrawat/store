@@ -5,6 +5,7 @@ import { errorMiddleware } from "@/middlewares/error.js";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { aj } from "./lib/arcjet";
+import productRoutes from "@/routes/products";
 
 dotenv.config({ path: "./.env" });
 
@@ -65,7 +66,7 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use("/v1/api/");
+app.use("/v1/api/products", productRoutes);
 
 app.use(errorMiddleware);
 
