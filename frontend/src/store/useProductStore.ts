@@ -1,15 +1,16 @@
 import { create } from "zustand";
 import axios from "axios";
+import type { AddProductType, Product } from "@/types/product";
 
 type ProductStore = {
   products: Product[];
   loading: boolean;
   error: null | string;
   fetchProducts: () => Promise<void>;
-  fetchProduct: (id: number) => Promise<void>;
-  addProduct: (data: NewProductType) => Promise<boolean>;
-  deleteProduct: (id: number) => Promise<void>;
-  updateProduct: (id: number, data: NewProductType) => Promise<void>;
+  fetchProduct: (id: string) => Promise<void>;
+  addProduct: (data: AddProductType) => Promise<boolean>;
+  deleteProduct: (id: string) => Promise<void>;
+  updateProduct: (id: string, data: AddProductType) => Promise<void>;
 };
 const baseURL =
   import.meta.env.MODE === "development" ? "http://localhost:5001" : "";
@@ -57,7 +58,7 @@ export const useProductStore = create<ProductStore>((set) => ({
       set({ loading: true });
       await axios.delete(`${baseURL}/api/products/${id}`);
       set((prev) => ({
-        products: prev.products.filter((product) => product.id !== Number(id)),
+        products: prev.products.filter((product) => product.id !== id),
       }));
     } catch (e) {
     } finally {

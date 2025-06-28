@@ -1,7 +1,22 @@
 @import "tailwindcss";
 
-@plugin "daisyui" {
-  themes: all;
+@theme {
+  --font-sans: Raleway, sans-serif;
+
+  --color-amulet-50: #f3f7f2;
+  --color-amulet-100: #e4eae1;
+  --color-amulet-200: #c8d6c4;
+  --color-amulet-300: #a2b99c;
+  --color-amulet-400: #7d9b77;
+  --color-amulet-500: #567950;
+  --color-amulet-600: #405f3c;
+  --color-amulet-700: #324c30;
+  --color-amulet-800: #2a3d28;
+  --color-amulet-900: #223321;
+  --color-amulet-950: #121c12;
+
+
+  --container-app: 64rem;
 }
 
 @layer base {

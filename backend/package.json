@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "start": "set NODE_ENV=PRODUCTION & node dist/app.js",
     "build": "npm run lint && tsc -p . && tsc-alias",
+    "seed": "pnpm exec ts-node prisma/seed.ts",
     "dev": "tsx watch src/app.ts",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
@@ -33,6 +37,7 @@
     "eslint": "9.28.0",
     "globals": "16.2.0",
     "prisma": "^6.9.0",
+    "ts-node": "^10.9.2",
     "tsc-alias": "1.8.16",
     "tsx": "4.19.4",
     "typescript": "5.8.3",

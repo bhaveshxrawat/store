@@ -15,11 +15,22 @@ datasource db {
 }
 
 model Product {
+  id            String         @id @default(uuid())
+  name          String         @unique
+  description   String
+  price         Float
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  likedBy       String[]
+  imageMetadata ImageMetadata?
+}
+
+model ImageMetadata {
   id        String   @id @default(uuid())
-  name      String   @unique
-  price     Float
-  imageUrl  String
+  fileId    String   @unique
+  fileUrl   String
+  productId String   @unique
+  product   Product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
-  likes     Int      @default(0)
   updatedAt DateTime @updatedAt
 }
