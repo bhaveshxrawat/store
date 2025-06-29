@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ChaoticKiranaIcon from "./ChaoticKiranaIcon";
+import { ChaoticKiranaIcon } from "./ui/Icons";
 
 const SiteHeader = () => {
   return (
