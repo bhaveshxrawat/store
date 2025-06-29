@@ -60,13 +60,13 @@ const RefreshIcon = memo(function RefreshIcon(props: SVGProps<SVGSVGElement>) {
     >
       <path
         d="M22 12l-3 3-3-3"
-        stroke="#000"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeWidth="1.5"
       />
       <path
         d="M11 20a8 8 0 118-8v2"
-        stroke="#000"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeWidth="1.5"
       />
@@ -75,8 +75,10 @@ const RefreshIcon = memo(function RefreshIcon(props: SVGProps<SVGSVGElement>) {
 });
 type HeartIconProps = SVGProps<SVGSVGElement> & { filled?: boolean };
 
-const HeartIcon = memo(function HeartIcon(props: HeartIconProps) {
-  const { filled = false, ...svgProps } = props;
+const HeartIcon = memo(function HeartIcon({
+  filled = false,
+  ...props
+}: HeartIconProps) {
   return (
     <svg
       fill="none"
@@ -84,7 +86,7 @@ const HeartIcon = memo(function HeartIcon(props: HeartIconProps) {
       height="24"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      {...svgProps}
+      {...props}
     >
       <path
         fill={filled ? "currentColor" : "none"}

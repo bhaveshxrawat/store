@@ -1,5 +1,5 @@
 import Button from "./ui/Button";
-import { AddIcon } from "./ui/Icons";
+import { AddIcon, RefreshIcon } from "./ui/Icons";
 
 function UtilityNav() {
   return (
@@ -7,6 +7,10 @@ function UtilityNav() {
       <Button>
         <AddIcon />
         add product
+      </Button>
+      <Button>
+        <RefreshIcon />
+        refresh
       </Button>
     </div>
   );
