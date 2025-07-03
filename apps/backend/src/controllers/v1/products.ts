@@ -56,11 +56,11 @@ export async function getProduct(req: Request, res: Response) {
 
 // Get all products (with optional load parameter)
 export async function getAllProducts(req: Request, res: Response) {
-  const load = Number(req.params.load) || 1;
-  const take = load <= 1 ? 20 : 20 + 10 * (load - 1);
+  // const load = Number(req.params.load) || 1;
+  // const take = load <= 1 ? 20 : 20 + 10 * (load - 1);
 
   try {
-    const products = await prisma.product.findMany({ take });
+    const products = await prisma.product.findMany();
     const count = await prisma.product.count();
     res.status(200).json({ success: true, data: products, count });
   } catch (error) {

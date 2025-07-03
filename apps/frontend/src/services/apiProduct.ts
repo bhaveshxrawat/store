@@ -31,8 +31,10 @@ interface ProductRes {
 export async function fetchProducts() {
   try {
     const res = await axios.get(`${baseURL}/v1/api/products`);
-    if (res.status === 200 && res.data?.success && res.data?.data) {
-      return res.data.data as ProductRes;
+    if (res.status === 200 && res.data.success) {
+      return res.data;
+    } else {
+      throw new Error("Failed to fetch products");
     }
     throw new Error("Failed to fetch products");
   } catch (e) {
