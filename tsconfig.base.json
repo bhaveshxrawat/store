@@ -9,10 +9,12 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@shared-types/*": ["packages/shared-types/src/*"]
+      "@shared-types/*": ["./packages/shared-types/src/*"]
     },
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "strictNullChecks": false
   }
 }

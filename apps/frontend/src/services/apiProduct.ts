@@ -22,19 +22,11 @@ export async function fetchProduct(id: string): Promise<Product | null> {
     throw new Error(`Unknown error: ${error}`);
   }
 }
-
-interface ProductRes {
-  success: boolean;
-  data: Product[];
-  count: number;
-}
 export async function fetchProducts() {
   try {
     const res = await axios.get(`${baseURL}/v1/api/products`);
     if (res.status === 200 && res.data.success) {
       return res.data;
-    } else {
-      throw new Error("Failed to fetch products");
     }
     throw new Error("Failed to fetch products");
   } catch (e) {
