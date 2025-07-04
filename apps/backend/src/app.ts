@@ -1,11 +1,11 @@
+import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
-import cors from "cors";
-import { errorMiddleware } from "@/middlewares/error.js";
 import morgan from "morgan";
-import dotenv from "dotenv";
-import { aj } from "./lib/arcjet";
+import { errorMiddleware } from "@/middlewares/error.js";
 import productRoutes from "@/routes/products";
+import { aj } from "./lib/arcjet";
 
 dotenv.config({ path: "./.env" });
 
@@ -61,7 +61,6 @@ app.use(async (req, res, next) => {
     }
     next();
   } catch (e) {
-    console.log("Arcjet error", e);
     next(e);
   }
 });
@@ -71,5 +70,5 @@ app.use("/v1/api/products", productRoutes);
 app.use(errorMiddleware);
 
 app.listen(port, () =>
-  console.log("Server is working on Port:" + port + " in " + envMode + " Mode.")
+  console.info(`Server is working on Port: ${port} in ${envMode} Mode.`)
 );

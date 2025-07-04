@@ -9,6 +9,9 @@
       "correctness": {
         "noUnusedVariables": "warn",
         "noUnusedImports": "warn"
+      },
+      "suspicious": {
+        "noConsole": "warn"
       }
     }
   }

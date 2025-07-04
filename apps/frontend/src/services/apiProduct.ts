@@ -1,5 +1,5 @@
+import { type Product, ProductSchema } from "@shared/schemas/product";
 import axios from "axios";
-import type { AddProductType, Product } from "@/types/product";
 import { baseURL } from "@/utils/consts";
 
 export async function fetchProduct(id: string): Promise<Product | null> {
@@ -22,7 +22,11 @@ export async function fetchProduct(id: string): Promise<Product | null> {
     throw new Error(`Unknown error: ${error}`);
   }
 }
-export async function fetchProducts() {
+export async function fetchProducts(): Promise<{
+  success: boolean;
+  count: number;
+  data: Product[];
+}> {
   try {
     const res = await axios.get(`${baseURL}/v1/api/products`);
     if (res.status === 200 && res.data.success) {
@@ -36,7 +40,7 @@ export async function fetchProducts() {
     throw new Error("error: Something went wrong");
   }
 }
-export async function addProduct(data: AddProductType) {
+export async function addProduct(data) {
   try {
     const res = await axios.post(`${baseURL}/api/products`, data);
     if (res.status === 201 && res.data?.success && res.data?.data) {
@@ -64,7 +68,7 @@ export async function deleteProduct(id: string) {
     throw new Error(`Unknown error: ${error}`);
   }
 }
-export async function updateProduct(id: string, data: AddProductType) {
+export async function updateProduct(id: string, data) {
   try {
     const res = await axios.put(`${baseURL}/api/products/${id}`, data);
     if (res.status === 200 && res.data?.success && res.data?.data) {
