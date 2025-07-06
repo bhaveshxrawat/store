@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@shared-types/*": ["packages/shared-types/src/*"]
+      "@shared/*": ["packages/shared-types/src/*"]
     },
     "noUnusedLocals": false,
     "noUnusedParameters": false,

@@ -1,4 +1,4 @@
-import { ProductSchema } from "@shared/schemas/product";
+import { ProductWithRelationsSchema } from "@shared/schemas/product";
 import type { Request, Response } from "express";
 import { prisma } from "@/lib/prisma";
 
@@ -56,15 +56,16 @@ export async function getProduct(req: Request, res: Response) {
 }
 
 // Get all products (with optional load parameter)
-export async function getAllProducts(res: Response) {
-  // const load = Number(req.params.load) || 1;
-  // const take = load <= 1 ? 20 : 20 + 10 * (load - 1);
-
+export async function getAllProducts(_: unknown, res: Response) {
   try {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+      include: {
+        imageMetadata: true,
+      },
+    });
     const count = await prisma.product.count();
     const validatedProducts = products.map((product) =>
-      ProductSchema.parse(product)
+      ProductWithRelationsSchema.parse(product)
     );
     res.status(200).json({ success: true, data: validatedProducts, count });
   } catch (error) {

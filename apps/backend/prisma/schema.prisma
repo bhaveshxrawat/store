@@ -10,9 +10,10 @@ generator client {
 }
 
 generator zod {
-  provider         = "zod-prisma-types"
-  output           = "../../../packages/shared-types/src/schemas/product"
-  createInputTypes = false
+  provider                  = "zod-prisma-types"
+  output                    = "../../../packages/shared-types/src/schemas/product"
+  createInputTypes          = false
+  createRelationValuesTypes = true
 }
 
 datasource db {
@@ -21,22 +22,27 @@ datasource db {
 }
 
 model Product {
-  id            String         @id @default(uuid())
-  name          String         @unique
-  description   String
-  price         Float
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  likedBy       String[]
-  imageMetadata ImageMetadata?
+  id              String        @id @default(cuid())
+  name            String        @unique
+  description     String
+  price           Float
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  likedBy         String[]
+  imageMetadata   ImageMetadata @relation(fields: [imageMetadataId], references: [id], onDelete: Cascade)
+  imageMetadataId String        @unique
+
+  @@map("product")
 }
 
 model ImageMetadata {
-  id        String   @id @default(uuid())
-  fileId    String   @unique
+  id        String   @id @default(cuid())
+  fileId    String
   fileUrl   String
-  productId String   @unique
-  product   Product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product?
+
+  @@unique([fileId, fileUrl])
+  @@map("image_metadata")
 }

@@ -8,10 +8,16 @@
       },
       "correctness": {
         "noUnusedVariables": "warn",
-        "noUnusedImports": "warn"
+        "noUnusedImports": "warn",
+        "noUnusedFunctionParameters": "warn"
       },
       "suspicious": {
-        "noConsole": "warn"
+        "noConsole": {
+          "level": "warn",
+          "options": {
+            "allow": ["info"]
+          }
+        }
       }
     }
   }

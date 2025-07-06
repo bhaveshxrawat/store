@@ -1,10 +1,11 @@
 // prisma/seed.ts
-import { prisma } from "../src/lib/prisma.ts";
-import { chaoticProducts } from "../src/constants/chaoticProducts.ts"; // adjust path as needed
+
+import { chaoticProducts } from '../src/constants/chaoticProducts'; // adjust path as needed
+import { prisma } from '../src/lib/prisma';
 
 async function main() {
-  for (const product of chaoticProducts) {
-    await prisma.product.create({
+  const createProductPromises = chaoticProducts.map((product) =>
+    prisma.product.create({
       data: {
         name: product.name,
         description: product.description,
@@ -18,14 +19,15 @@ async function main() {
           },
         },
       },
-    });
-  }
+    })
+  );
+  await Promise.all(createProductPromises);
 
-  console.log("🌪️ Chaotic products seeded.");
+  console.info('🌪️ Chaotic products seeded.');
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    throw new Error(`${e instanceof Error ? e.message : JSON.stringify(e)}`);
   })
   .finally(() => prisma.$disconnect());

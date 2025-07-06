@@ -1,4 +1,3 @@
-import ProductCard from "@/components/ProductCard";
 import { useProducts } from "./hooks/useProducts";
 
 function ProductList() {
