@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@shared/*": ["../../packages/shared-types/src/*"]
+      "@shared/*": ["../../shared/src/*"]
     },
     "typeRoots": ["./src/types"],
     "strictNullChecks": true

@@ -15,8 +15,8 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["../../packages/shared-types/src/*"]
+      "@/*": ["src/*"],
+      "@shared/*": ["../../shared/src/*"]
     },
     "strict": true,
     "noUnusedLocals": true,
