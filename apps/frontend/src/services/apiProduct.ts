@@ -1,12 +1,12 @@
 import {
-  type Product,
+  type ProductWithRelations,
   ProductWithRelationsSchema,
 } from '@shared/schemas/product';
 import axios from 'axios';
 import z from 'zod';
 import { baseURL } from '@/utils/consts';
 
-export async function fetchProduct(id: string): Promise<Product | null> {
+export async function fetchProduct(id: string): Promise<ProductWithRelations | null> {
   if (!id) {
     return null;
   }
@@ -16,7 +16,7 @@ export async function fetchProduct(id: string): Promise<Product | null> {
 
     // Optional: validate structure before returning
     if (res.status === 200 && res.data.success) {
-      return res.data.data as Product;
+      return res.data.data as ProductWithRelations;
     }
     throw new Error('Failed to fetch the product');
   } catch (error) {
@@ -28,7 +28,7 @@ export async function fetchProduct(id: string): Promise<Product | null> {
 }
 export async function fetchProducts(): Promise<{
   count: number;
-  data: Product[];
+  data: ProductWithRelations[];
 }> {
   try {
     const res = await axios.get(`${baseURL}/v1/api/products`);
@@ -50,7 +50,7 @@ export async function addProduct(data: unknown) {
   try {
     const res = await axios.post(`${baseURL}/api/products`, data);
     if (res.status === 201 && res.data?.success && res.data?.data) {
-      return res.data.data as Product;
+      return res.data.data as ProductWithRelations;
     }
     throw new Error('Failed to add the product');
   } catch (e) {
@@ -64,7 +64,7 @@ export async function deleteProduct(id: string) {
   try {
     const res = await axios.delete(`${baseURL}/api/products/${id}`);
     if (res.status === 200 && res.data?.success && res.data?.data) {
-      return res.data.data as Product;
+      return res.data.data as ProductWithRelations;
     }
     return null;
   } catch (error) {

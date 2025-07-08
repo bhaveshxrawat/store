@@ -10,14 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "shared-types": "*",
-    "@tailwindcss/vite": "^4.0.6",
+    "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-query": "^5.80.7",
     "axios": "^1.7.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
     "react-router-dom": "^7.1.5",
+    "shared-types": "*",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.0.6",
     "zustand": "^5.0.3"
