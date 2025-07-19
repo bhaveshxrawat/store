@@ -18,6 +18,12 @@
             "allow": ["info"]
           }
         }
+      },
+      "nursery": {
+        "useSortedClasses": "warn"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "info"
       }
     }
   }

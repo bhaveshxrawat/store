@@ -13,11 +13,9 @@
     "seed": "pnpm --filter backend run seed"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
-    "typescript": "^5.4.0",
-    "ultracite": "5.0.31"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
-    "zod": "^3.25.73"
+    "zod": "^3.25.76"
   }
 }

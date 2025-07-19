@@ -1,15 +1,15 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
-import SiteHeader from "@/components/SiteHeader";
+import SiteHeader from '@/components/SiteHeader';
 
-import Homepage from "@/pages/Homepage";
+import Homepage from '@/pages/Homepage';
 
 function App() {
   return (
-    <div className="min-h-dvh bg-amulet-200 py-8 px-6 flex flex-col justify-stretch gap-6 max-sm:gap-4 max-sm:py-0 max-sm:px-4">
+    <div className="flex h-dvh flex-col justify-stretch gap-6 bg-amulet-200 px-6 py-8 max-sm:gap-4 max-sm:px-4 max-sm:py-0">
       <SiteHeader />
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route element={<Homepage />} path="/" />
       </Routes>
     </div>
   );
