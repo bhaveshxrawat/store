@@ -13,6 +13,7 @@
     "seed": "pnpm --filter backend run seed"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.1.2",
     "typescript": "^5.8.3"
   },
   "dependencies": {
