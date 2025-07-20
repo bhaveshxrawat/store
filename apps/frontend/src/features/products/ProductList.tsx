@@ -14,20 +14,21 @@ function ProductList() {
 			root: rootEl.current,
 			rootMargin: "0px",
 			scrollMargin: "0px",
-			threshold: [0, 0.1],
+			threshold: [0],
 		};
 		const observer = new IntersectionObserver(() => {
 			const isTopVisible =
-				topSentinel.current?.getBoundingClientRect().top >=
+				topSentinel.current.getBoundingClientRect().bottom >=
 				rootEl.current.getBoundingClientRect().top;
 			const isBottomVisible =
-				bottomSentinel.current?.getBoundingClientRect().bottom <=
+				bottomSentinel.current.getBoundingClientRect().top <=
 				rootEl.current.getBoundingClientRect().bottom;
 
 			rootEl.current.classList.remove("mask-t-from-90%", "mask-b-from-90%");
 
 			if (!isTopVisible) rootEl.current.classList.add("mask-t-from-90%");
 			if (!isBottomVisible) rootEl.current.classList.add("mask-b-from-90%");
+			console.log("object");
 		}, options);
 		for (const observant of [topSentinel.current, bottomSentinel.current]) {
 			observer.observe(observant);
@@ -47,13 +48,13 @@ function ProductList() {
 			className="scrollbar-none mt-6 flex-1 overflow-y-auto will-change-auto"
 			ref={rootEl}
 		>
-			<div aria-hidden={"true"} ref={topSentinel} />
-			<div className="mx-auto grid max-w-app grid-cols-[repeat(auto-fit,_minmax(18.75rem,1fr))] gap-2.5">
+			<div className="h-1" aria-hidden={"true"} ref={topSentinel} />
+			<div className="mx-auto grid max-w-app grid-cols-[repeat(auto-fit,_minmax(16.5625rem,1fr))] gap-2.5">
 				{products.map((product) => (
 					<ProductCard key={product.name} product={product} />
 				))}
 			</div>
-			<div aria-hidden={"true"} ref={bottomSentinel} />
+			<div className="h-1" aria-hidden={"true"} ref={bottomSentinel} />
 		</div>
 	);
 }
