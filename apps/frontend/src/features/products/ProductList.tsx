@@ -43,7 +43,10 @@ function ProductList() {
 	//   return <p>Loading...</p>;
 	// }
 	return (
-		<div className="scrollbar-none mt-6 flex-1 overflow-y-auto will-change-auto" ref={rootEl}>
+		<div
+			className="scrollbar-none mt-6 flex-1 overflow-y-auto will-change-auto"
+			ref={rootEl}
+		>
 			<div aria-hidden={"true"} ref={topSentinel} />
 			<div className="mx-auto grid max-w-app grid-cols-[repeat(auto-fit,_minmax(18.75rem,1fr))] gap-2.5">
 				{products.map((product) => (
