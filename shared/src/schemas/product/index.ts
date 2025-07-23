@@ -1,5 +1,4 @@
-import { z } from 'zod';
-import type { Prisma } from '../../../../../apps/backend/src/generated/prisma';
+import { z } from "zod";
 
 /////////////////////////////////////////
 // HELPER FUNCTIONS
@@ -10,34 +9,34 @@ import type { Prisma } from '../../../../../apps/backend/src/generated/prisma';
 /////////////////////////////////////////
 
 export const TransactionIsolationLevelSchema = z.enum([
-  'ReadUncommitted',
-  'ReadCommitted',
-  'RepeatableRead',
-  'Serializable',
+	"ReadUncommitted",
+	"ReadCommitted",
+	"RepeatableRead",
+	"Serializable",
 ]);
 
 export const ProductScalarFieldEnumSchema = z.enum([
-  'id',
-  'name',
-  'description',
-  'price',
-  'createdAt',
-  'updatedAt',
-  'likedBy',
-  'imageMetadataId',
+	"id",
+	"name",
+	"description",
+	"price",
+	"createdAt",
+	"updatedAt",
+	"likedBy",
+	"imageMetadataId",
 ]);
 
 export const ImageMetadataScalarFieldEnumSchema = z.enum([
-  'id',
-  'fileId',
-  'fileUrl',
-  'createdAt',
-  'updatedAt',
+	"id",
+	"fileId",
+	"fileUrl",
+	"createdAt",
+	"updatedAt",
 ]);
 
-export const SortOrderSchema = z.enum(['asc', 'desc']);
+export const SortOrderSchema = z.enum(["asc", "desc"]);
 
-export const QueryModeSchema = z.enum(['default', 'insensitive']);
+export const QueryModeSchema = z.enum(["default", "insensitive"]);
 /////////////////////////////////////////
 // MODELS
 /////////////////////////////////////////
@@ -47,14 +46,14 @@ export const QueryModeSchema = z.enum(['default', 'insensitive']);
 /////////////////////////////////////////
 
 export const ProductSchema = z.object({
-  id: z.string().cuid(),
-  name: z.string(),
-  description: z.string(),
-  price: z.number(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
-  likedBy: z.string().array(),
-  imageMetadataId: z.string(),
+	id: z.string().cuid(),
+	name: z.string(),
+	description: z.string(),
+	price: z.number(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
+	likedBy: z.string().array(),
+	imageMetadataId: z.string(),
 });
 
 export type Product = z.infer<typeof ProductSchema>;
@@ -63,30 +62,30 @@ export type Product = z.infer<typeof ProductSchema>;
 //------------------------------------------------------
 
 export type ProductRelations = {
-  imageMetadata: ImageMetadataWithRelations;
+	imageMetadata: ImageMetadataWithRelations;
 };
 
 export type ProductWithRelations = z.infer<typeof ProductSchema> &
-  ProductRelations;
+	ProductRelations;
 
 // @ts-expect-error
 export const ProductWithRelationsSchema: z.ZodType<ProductWithRelations> =
-  ProductSchema.merge(
-    z.object({
-      imageMetadata: z.lazy(() => ImageMetadataWithRelationsSchema),
-    })
-  );
+	ProductSchema.merge(
+		z.object({
+			imageMetadata: z.lazy(() => ImageMetadataWithRelationsSchema),
+		}),
+	);
 
 /////////////////////////////////////////
 // IMAGE METADATA SCHEMA
 /////////////////////////////////////////
 
 export const ImageMetadataSchema = z.object({
-  id: z.string().cuid(),
-  fileId: z.string(),
-  fileUrl: z.string(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+	id: z.string().cuid(),
+	fileId: z.string(),
+	fileUrl: z.string(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
 });
 
 export type ImageMetadata = z.infer<typeof ImageMetadataSchema>;
@@ -95,18 +94,18 @@ export type ImageMetadata = z.infer<typeof ImageMetadataSchema>;
 //------------------------------------------------------
 
 export type ImageMetadataRelations = {
-  product?: ProductWithRelations | null;
+	product?: ProductWithRelations | null;
 };
 
 export type ImageMetadataWithRelations = z.infer<typeof ImageMetadataSchema> &
-  ImageMetadataRelations;
+	ImageMetadataRelations;
 
 export const ImageMetadataWithRelationsSchema: z.ZodType<ImageMetadataWithRelations> =
-  ImageMetadataSchema.merge(
-    z.object({
-      product: z
-        .lazy(() => ProductWithRelationsSchema)
-        .nullable()
-        .optional(),
-    })
-  );
+	ImageMetadataSchema.merge(
+		z.object({
+			product: z
+				.lazy(() => ProductWithRelationsSchema)
+				.nullable()
+				.optional(),
+		}),
+	);

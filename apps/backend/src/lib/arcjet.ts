@@ -2,49 +2,49 @@ import arcjet, { detectBot, shield, tokenBucket } from "@arcjet/node";
 import "dotenv/config";
 
 export const aj = arcjet({
-  // Get your site key from https://app.arcjet.com and set it as an environment
+	// Get your site key from https://app.arcjet.com and set it as an environment
 
-  // variable rather than hard coding.
+	// variable rather than hard coding.
+	// biome-ignore lint/style/noNonNullAssertion: arcjet
+	key: process.env.ARCJET_KEY!,
 
-  key: process.env.ARCJET_KEY!,
+	characteristics: ["ip.src"], // Track requests by IP
 
-  characteristics: ["ip.src"], // Track requests by IP
+	rules: [
+		// Shield protects your app from common attacks e.g. SQL injection
 
-  rules: [
-    // Shield protects your app from common attacks e.g. SQL injection
+		shield({ mode: "LIVE" }),
 
-    shield({ mode: "LIVE" }),
+		// Create a bot detection rule
 
-    // Create a bot detection rule
+		detectBot({
+			mode: "LIVE", // Blocks requests. Use "DRY_RUN" to log only
 
-    detectBot({
-      mode: "LIVE", // Blocks requests. Use "DRY_RUN" to log only
+			// Block all bots except the following
 
-      // Block all bots except the following
+			allow: [
+				"CATEGORY:TOOL", // Google, Bing, etc
 
-      allow: [
-        "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc
+				// Uncomment to allow these other common bot categories
 
-        // Uncomment to allow these other common bot categories
+				// See the full list at https://arcjet.com/bot-list
 
-        // See the full list at https://arcjet.com/bot-list
+				//"CATEGORY:MONITOR", // Uptime monitoring services
 
-        //"CATEGORY:MONITOR", // Uptime monitoring services
+				//"CATEGORY:PREVIEW", // Link previews e.g. Slack, Discord
+			],
+		}),
 
-        //"CATEGORY:PREVIEW", // Link previews e.g. Slack, Discord
-      ],
-    }),
+		// Create a token bucket rate limit. Other algorithms are supported.
 
-    // Create a token bucket rate limit. Other algorithms are supported.
+		tokenBucket({
+			mode: "LIVE",
 
-    tokenBucket({
-      mode: "LIVE",
+			refillRate: 5, // Refill 5 tokens per interval
 
-      refillRate: 5, // Refill 5 tokens per interval
+			interval: 10, // Refill every 10 seconds
 
-      interval: 10, // Refill every 10 seconds
-
-      capacity: 10, // Bucket capacity of 10 tokens
-    }),
-  ],
+			capacity: 10, // Bucket capacity of 10 tokens
+		}),
+	],
 });
